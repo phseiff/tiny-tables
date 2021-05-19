@@ -1,10 +1,303 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<!-- The following blob of code consists of tests and demonstration code - skip ahead to the license information, after which the actual code starts, if you're here for looking at the code -->
 
-</body>
-</html>
+<!--
+  Here we have some exemplary css for tables, which corresponds to the css for the minified tables we defined later.
+  You can also use any other table css, but make sure to properly modify the small-table-css to work well with your
+  large-table-css:
+ -->
+<link rel="stylesheet" href="large-table-styling.css">
+
+<!-- Here we have some html for demonstration purposes: -->
+
+<p>Demonstration table 1 (lots of text):</p>
+<table>
+  <tr>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th>Age</th>
+  </tr>
+  <tr>
+    <td>Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill Jill </td>
+    <td>Smith</td>
+    <td>50</td>
+  </tr>
+  <tr>
+    <td>Eve</td>
+    <td>Jackson</td>
+    <td>94</td>
+  </tr>
+ </table>
+
+<p>Demonstration table 2 (some images):</p>
+<table>
+  <tr>
+      <th>image 1</th>
+      <th>comment</th>
+      <th>image 2</th>
+  </tr>
+  <tr>
+      <td>
+        <img width="300px" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Image-Omnidirectional_image_computer_lab.jpg/800px-Image-Omnidirectional_image_computer_lab.jpg">
+      </td>
+      <td>
+          foo bar
+      </td>
+      <td>
+          <img width="200px" src="https://c.pxhere.com/images/38/b3/1131303fe23a144034881294fa34-1566387.jpg!d">
+      </td>
+  </tr>
+ </table>
+
+<!-- The actual implementation: -->
+
+
+<style id="table-small-style-remove-if-js-activated">
+    @media screen and (max-width: 599px) {
+        table,
+        table th,
+        table td,
+        table tr {
+            all: initial;
+            display: block;
+            word-wrap: normal;
+            font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif;
+            color: rgba(0, 0, 0, 0.87);
+        }
+
+        table tr:not(:last-child) {
+            border-bottom: 1px solid #d1d5da
+        }
+        table tr:nth-child(2n) {
+            background-color: #f6f8fa;
+        }
+
+        table {
+            border: 1px solid #d1d5da;
+            max-width: 100%;
+            border-radius: 5px;
+            margin-bottom: 4px;
+            width: fit-content;
+        }
+
+        table img {
+            max-width: 100% !important
+        }
+
+        table td,
+        table th,
+        table tr {
+            padding-bottom: 4px;
+            padding-top: 4px;
+            border-collapse: collapse;
+        }
+
+        table tr {
+            padding-left: 4px;
+            padding-right: 4px
+        }
+
+        table th:nth-child(1),
+        table td:nth-child(1) {
+            padding-left: 0;
+            padding-bottom: 3px;
+        }
+
+        table th:nth-child(2),
+        table td:nth-child(2) {
+            padding-left: 40px;
+            padding-bottom: 3px;
+        }
+
+        table th:nth-child(3),
+        table td:nth-child(3) {
+            padding-left: 80px;
+            padding-bottom: 3px;
+        }
+
+        table th:nth-child(4),
+        table td:nth-child(4) {
+            padding-left: 120px;
+            padding-bottom: 3px;
+        }
+
+        table th:nth-child(5),
+        table td:nth-child(5) {
+            padding-left: 160px;
+            padding-bottom: 3px;
+        }
+
+        table th:nth-child(6),
+        table td:nth-child(6) {
+            padding-left: 200px;
+            padding-bottom: 3px;
+        }
+
+        table th:nth-child(7),
+        table td:nth-child(7) {
+            padding-left: 220px;
+            padding-bottom: 3px;
+        }
+
+        table th {
+            font-weight: 600;
+        }
+    }
+</style>
+
+<style id="remove-max-width-from-images-in-tables"></style>
+<script>
+    /* Get all tables */
+    let allTablesInArticles = document.querySelectorAll("table");
+
+    /* Check whether an element is overflown */
+    function isOverflown(el) {
+        return el.clientWidth < el.scrollWidth;
+    }
+
+    /* The basis CSS for every table's min css: */
+
+    // css for one indention level:
+    let tableColumnWidthDescriptionCSS = "\n" +
+        "      table.{stcn} th:nth-child({n}),\n" +
+        "      table.{stcn} td:nth-child({n}) {padding-left: {px}px; padding-bottom: 3px;}\n";
+    // pre-rendered css for 7 indention levels:
+    let basisTableColumnWidthDescriptionCSS = "\n" +
+        "      table.{stcn} th:nth-child(1),\n" +
+        "      table.{stcn} td:nth-child(1) {padding-left: 0; padding-bottom: 3px;}\n" +
+        "      table.{stcn} th:nth-child(2),\n" +
+        "      table.{stcn} td:nth-child(2) {padding-left: 40px; padding-bottom: 3px;}\n" +
+        "      table.{stcn} th:nth-child(3),\n" +
+        "      table.{stcn} td:nth-child(3) {padding-left: 80px; padding-bottom: 3px;}\n" +
+        "      table.{stcn} th:nth-child(4),\n" +
+        "      table.{stcn} td:nth-child(4) {padding-left: 120px; padding-bottom: 3px;}\n" +
+        "      table.{stcn} th:nth-child(5),\n" +
+        "      table.{stcn} td:nth-child(5) {padding-left: 160px; padding-bottom: 3px;}\n" +
+        "      table.{stcn} th:nth-child(6),\n" +
+        "      table.{stcn} td:nth-child(6) {padding-left: 200px; padding-bottom: 3px;}\n" +
+        "      table.{stcn} th:nth-child(7),\n" +
+        "      table.{stcn} td:nth-child(7) {padding-left: 220px; padding-bottom: 3px;}\n";
+    // complete css for a table:
+    let tableSmallCSS = "" +
+        "      table.{stcn},\n" +
+        "      table.{stcn} th,\n" +
+        "      table.{stcn} td,\n" +
+        "      table.{stcn} tr {\n" +
+        "          all: initial;\n" +
+        "          display: block;\n" +
+        "          word-wrap: normal;\n" +
+        "          border-collapse: collapse;\n" +
+        "          font-family: -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", sans-serif;\n" +
+        "          color: rgba(0, 0, 0, 0.87);\n" +
+        "      }\n" +
+        "\n" +
+        "      table.{stcn} tr:not(:last-child) {border-bottom: 1px solid #d1d5da}\n" +
+        "\n" +
+        "      table tr:nth-child(2n) {\n" +
+        "          background-color: #f6f8fa;\n" +
+        "      }" +
+        "      table.{stcn} {border: 1px solid #d1d5da; border-radius: 5px; margin-bottom: 4px}\n" +
+        "\n" +
+        "      table.{stcn} img {max-width: 100% !important}\n" +
+        "      table.{stcn} td,\n" +
+        "      table.{stcn} th,\n" +
+        "      table.{stcn} tr {padding-bottom: 4px}\n\n" +
+        "      table.{stcn} tr {padding-top: 4px; padding-left: 4px; padding-right: 4px}\n" +
+        "\n" +
+        "      table.{stcn} {max-width: fit-content;}\n" +
+        "\n" +
+        "{tableColumnsWidthInformation}" +
+        "      table.{stcn} th {font-weight: 600;}"
+
+    /* Create initial css for every table. */
+    function createInitialCSSForEveryTable() {
+        let css = "";
+        for (let i=0; i<allTablesInArticles.length; i++) {
+            let table = allTablesInArticles[i];
+            let table_small_class_name = "table-" + i + "-small"
+
+            let thisTablesCSS = tableSmallCSS;
+            let firstRowOfTheTable = table.getElementsByTagName("tr")[0];
+            let columnsOfFirstRowOfTable = firstRowOfTheTable.getElementsByTagName("th");
+            if (!columnsOfFirstRowOfTable)
+                columnsOfFirstRowOfTable = firstRowOfTheTable.getElementsByTagName("td");
+            let amountOfColumns = columnsOfFirstRowOfTable.length;
+            let tableColumnsWidthInformation;
+            if (amountOfColumns <= 4)
+                tableColumnsWidthInformation = basisTableColumnWidthDescriptionCSS;
+            else {
+                tableColumnsWidthInformation = "";
+                let maxIndention = 90;
+                for (let j=0; j<amountOfColumns; j++) {
+                    tableColumnsWidthInformation += tableColumnWidthDescriptionCSS
+                        .replaceAll("{n}", (j + 1).toString())
+                        .replaceAll("{px}", (j * maxIndention / amountOfColumns).floor().toString())
+                }
+            }
+            thisTablesCSS = thisTablesCSS
+                .replaceAll("{tableColumnsWidthInformation}", tableColumnsWidthInformation)
+                .replaceAll("{stcn}", table_small_class_name);
+
+            css += thisTablesCSS;
+        }
+
+        /* Add the generated css to a style tag - source: https://stackoverflow.com/a/524721/9816158 */
+        head = document.head || document.getElementsByTagName('head')[0];
+        style = document.createElement('style');
+        style.type = 'text/css';
+        head.appendChild(style);
+        if (style.styleSheet) {
+            style.styleSheet.cssText = css;
+        } else {
+            style.appendChild(document.createTextNode(css));
+        }
+    }
+
+    /* Iterate over all tables and give each of them their "small"-css if they need scrolling. */
+    function resizeAllTablesIfWindowBecameToSmall() {
+
+        /* Make sure tables with nothing but images don't get max-width=100% ruin them: */
+        /* (You might need to remove this or find another solution for this if you use max-width with different values
+        than 100% often.) */
+        document.getElementById("remove-max-width-from-images-in-tables").innerText = "table img {" +
+            "max-width: none !important;}";
+
+        /* Actually change style for tables where needed: */
+        for (let i=0; i<allTablesInArticles.length; i++) {
+            let table = allTablesInArticles[i];
+            let table_small_class_name = "table-" + i + "-small"
+            if (isOverflown(table)) {
+                if (!table.classList.contains(table_small_class_name)) {
+                    console.log("Added small style to table-" + i);
+                    table.classList.add(table_small_class_name);
+                }
+            } else {
+                if (table.classList.contains(table_small_class_name)) {
+                    table.classList.remove(table_small_class_name);
+                    if (isOverflown(table)) {
+                        /* We have to re-add the element because it overflows again. */
+                        table.classList.add(table_small_class_name);
+                    } else {
+                        console.log("Removed small style from table-" + i);
+                    }
+                }
+            }
+        }
+
+        /* Make sure tables with nothing but images don't get their max width again: */
+        document.getElementById("remove-max-width-from-images-in-tables").innerText = "";
+    }
+
+    /* Add event listeners to be executed once DOM has loaded: */
+
+    document.addEventListener('DOMContentLoaded', function() {
+        createInitialCSSForEveryTable();
+        resizeAllTablesIfWindowBecameToSmall();
+    });
+    window.addEventListener("load", function(){
+        /* Remove the offline style - but only after all images are loaded and we can use the more sophisticated method */
+        document.getElementById("table-small-style-remove-if-js-activated").remove();
+        /* For when a table contains images that make it overflow after our first check after DOMContentLoaded said it fits. */
+        resizeAllTablesIfWindowBecameToSmall();
+    });
+    window.addEventListener('resize', resizeAllTablesIfWindowBecameToSmall);
+</script>
