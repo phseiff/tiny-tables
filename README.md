@@ -1,4 +1,4 @@
-<h1 align="center">tiny-tables</h1>
+<h1 align="center"><img alt="tiny-tables" src="images/repository-open-graph-image.png"></h1>
 
 <p align="center">Stop your website's tables from overflowing on mobile with this fancy tiny trick with CSS & Javascript</p>
 
