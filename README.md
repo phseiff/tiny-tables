@@ -2,7 +2,7 @@
 
 <p align="center">Stop your website's tables from overflowing on mobile with this fancy tiny trick with CSS & Javascript</p>
 
-<p align="center"><a href="#why-should-i-care">Why?</a> ⋅ <a href="#how-does-this-work">How?</a> ⋅ <a href="https://phseiff.com/tiny-tables/demo">Demo pls?</a></p>
+<p align="center"><a href="#why-should-i-care">Why?</a> ⋅ <a href="#how-does-this-work">How?</a> ⋅ <a href="#demo-pls">Demo pls?</a></p>
 
 ---
 
