@@ -2,7 +2,7 @@
 
 <p align="center">Stop your website's tables from overflowing on mobile with this fancy tiny trick with CSS & Javascript</p>
 
-<p align="center">[ww](https://phseiff.com/)</p>
+<p align="center"><a href="#why-should-i-care">Why?</a> ⋅ <a href="#how-does-this-work">How?</a> ⋅ <a href="https://phseiff.com/tiny-tables/demo">Demo pls?</a></p>
 
 ---
 
@@ -29,6 +29,28 @@ One solution I came up with (which this repository demonstrates) is to stack the
 ![the same table, but for every row, the cells are shown beneath each other with different indentions](images/illustration-table-small-stacked.png)
 
 I think this is a really neat solution, and I don't get why no website I have ever seen does this (please feel free to correct me on this if you know any).
+
+---
+
+For this reason, I made this repository;
+to showcase an example on how to achieve this, share some well-documented demonstration code that you can use or build on, explain said demonstration code (it's much less trivial than it looks), and host a working demonstration of it.
+
+## How (does this work)?
+
+## Demo pls?
+
+### for looks:
+
+I have hosted an example page with the example table from this README and another table with example images [here](https://phseiff.com/tiny-tables/demo).
+<br/>
+You can visit it and resize it to see how the tables look on a large scale display vs on a tiny display (further instructions are on the demo page).
+
+There is also an [anti-demo](https://phseiff.com/tiny-tables/anti-demo) that shows how that'd look without our tiny little trick.
+
+### for code:
+
+The code of the demos is in this repository, and licensed under MIT, so feel free to reuse it for your own website!
+There is essentially one file `large-table-styling.css` which describes how the tables look by default (the style for tables that aren't at risk of overflowing), and in the file `demo.html`, you can find a full and well-documented implementation of the trick explained above.
 
 ---
 

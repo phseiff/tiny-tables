@@ -9,10 +9,11 @@
 
 <!-- Quick explanation: -->
 <p>
-    If you are on mobile, you can change the orientation on your phone to see how these tables look on small screens (commonly mobile) vs on not-so-small screens (commonly desktop).<br/>
-    If you are on desktop, you can use Ctrl+Shift+I to get a console window, in which you can then choose to see the page in a mobile-like size.<br/><br/>
-    The idea is to demonstrate a css & js trick that stops tables from overflowing on mobile, and displays them in a special non-overflowing styling instead.<br>
-    You can read more about this <a href="https://github.com/phseiff/tiny-tables">on the project's GitHub page</a>.
+    The idea of this page is to demonstrate a css & js trick that stops tables from overflowing on mobile, and displays them in a special non-overflowing styling instead.<br>
+    You can read more about this <a href="https://github.com/phseiff/tiny-tables">on the project's GitHub page</a>.<br/><br/>
+
+    If you are on mobile, you can change the orientation of your phone to see how these tables look on small screens (commonly mobile) vs on not-so-small screens (commonly desktop).<br/>
+    If you are on desktop, you can use Ctrl+Shift+I to get a console window, in which you can then choose to see the page in a mobile-like size.
 </p>
 
 <!-- Here we have some html for demonstration purposes: -->
@@ -59,6 +60,9 @@
 <!-- The actual implementation: -->
 
 
+<!-- The following style is for when js is disabled, and for the time until the DOM and all images have loaded,
+since the js implementation is defunct/ erring on the side of not applying the special style, respectively,
+in these situations.-->
 <style id="table-small-style-remove-if-js-activated">
     @media screen and (max-width: 599px) {
         table,
@@ -152,7 +156,10 @@
     }
 </style>
 
+<!-- This is where we store our js-generated styling: -->
 <style id="remove-max-width-from-images-in-tables"></style>
+
+<!-- The actual JS implementation: -->
 <script>
     /* Get all tables */
     let allTablesInArticles = document.querySelectorAll("table");
@@ -168,7 +175,7 @@
     let tableColumnWidthDescriptionCSS = "\n" +
         "      table.{stcn} th:nth-child({n}),\n" +
         "      table.{stcn} td:nth-child({n}) {padding-left: {px}px; padding-bottom: 3px;}\n";
-    // pre-rendered css for 7 indention levels:
+    // pre-rendered indention css for tables with less than 7 columns:
     let basisTableColumnWidthDescriptionCSS = "\n" +
         "      table.{stcn} th:nth-child(1),\n" +
         "      table.{stcn} td:nth-child(1) {padding-left: 0; padding-bottom: 3px;}\n" +
@@ -260,14 +267,18 @@
         }
     }
 
-    /* Iterate over all tables and give each of them their "small"-css if they need scrolling. */
+    /* Iterate over all tables and give each of them their small-mode-css if they need scrolling. */
     function resizeAllTablesIfWindowBecameToSmall() {
 
-        /* Make sure tables with nothing but images don't get max-width=100% ruin them: */
+        /* Make sure tables with one `max-width: 100%`-image in every row don't get squashed until the image is 2 pixels wide. */
         /* (You might need to remove this or find another solution for this if you use max-width with different values
-        than 100% often.) */
-        document.getElementById("remove-max-width-from-images-in-tables").innerText = "table img {" +
-            "max-width: none !important;}";
+        than 100% often): */
+        document.getElementById("remove-max-width-from-images-in-tables").innerText = "table img[max-width=100%] {" +
+            "    max-width: none !important;" +
+            "}" +
+            "table img[width=100%] {" +
+            "    width: none !important;" +
+            "}";
 
         /* Actually change style for tables where needed: */
         for (let i=0; i<allTablesInArticles.length; i++) {
