@@ -2,7 +2,7 @@
 
 <p align="center">Stop your website's tables from overflowing on mobile with this fancy tiny trick with CSS & Javascript</p>
 
-<p align="center"><a href="#why-should-i-care">Why?</a> ⋅ <a href="#how-does-this-work">How?</a> ⋅ <a href="#demo-pls">Demo pls?</a> ⋅ <a href="#how-do-i-even-use-this">Use how?</a></p>
+<p align="center"><a href="#why-should-i-care">Why?</a> ⋅ <a href="#how-does-this-work">How?</a> ⋅ <a href="#demo-pls">Demo pls?</a> ⋅ <a href="#how-do-i-even-use-this">How to use this?</a></p>
 
 ---
 
@@ -115,9 +115,9 @@ There is essentially one file `large-table-styling.css` which describes how the 
 
 ### How do I even use this?
 
-If you use the same or a similar styling for tables as the one described in `large-table-styling.css`, you might be able to just copy the relevant code from `demo.html` (pretty much everything after the demos).
+If you use the same or a similar styling for tables as the one described in `large-table-styling.css`, you might be able to just copy the relevant code from `demo.html` (pretty much everything after the demos) into your HTML files.
 
-If your default styling from tables is largely different, you might be able to do the same, but it will probably look somewhat odd, since the tables on mobile will give off a different vibes than they'd give off on desktop.
+If your default styling of tables is largely different, you might be able to do the same, but it will probably look somewhat odd, since the tables on mobile will give off a different vibes than they'd give off on desktop.
 You can change the minified-table-CSS to suit your needs, though!
 
 If your tables contain many images, you might want to tweek and double-check some things;
