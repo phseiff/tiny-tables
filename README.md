@@ -61,13 +61,19 @@ Both of these issues are fixed by the javascript-implementation.
   2. Every time the viewport is resized (and one time each after the DOM and the assets of the website are loaded), a function is called (by binding to `DOMContentLoaded`, `loaded` and `resize` events) that iterates over all tables of the document and assigns each one its minify-class (in case it overflows), and un-assigns it again (if doing so is possible without causing an overflow).<br/>
      The pure CSS solution is kept as an intermediate solution through all of this until all images are loaded (triggering the `load` event), to ensure that tables with images in them don't require horizontal scrolling until all images are loaded.
 
-   This solves issue (1) of the CSS-only solution, and it does so pretty efficiently since it adds no overhead other than a function call *on resize* and two on page load (the call on `DOMContentLoaded`, in case you wondered, isn't really necessary, but it reduces the time until layout shift is finished for subpages without text-only tables).
+   This solves issue (1) of the CSS-only solution, and it does so pretty efficiently since it adds no overhead other than a function call *on resize* and two on page load (the call on `DOMContentLoaded`, in case you wondered, isn't really necessary, but it reduces the time until layout shift is finished for websites without text-only tables).
 
-### But isn't iterating over all tables on every resize pretty cost-intensive?
+**In case you'd like to see how it looks like when the table switches to its mobile form, here is a GIF:**
 
-It isn't, since all tables are added to an array on page load, so iterating over them goes in `O(num_tables)` rather than <code>O(dom_size<sup>2</sup>)</code> or something.
+<p align="center"><img src="images/resize-recording.gif" alt="GIF of a recording where the demo page is resized"/></p>
 
-### What's the issue about tables with images? There's even one specifically in the demo!
+**FAQ:**
+
+<details id="many-images-info"><summary>But isn't iterating over all tables on every resize pretty cost-intensive?</summary>
+
+It isn't, since all tables are added to an array on page load, so iterating over them goes in `O(num_tables)` rather than <code>O(dom_size<sup>2</sup>)</code> or something.</details>
+
+<details><summary>What's the issue about tables with images? There's even one specifically in the demo!</summary>
 
 There are actually two issues, to be precise.
 
@@ -90,13 +96,7 @@ There are actually two issues, to be precise.
 
 2. It sometimes takes a while until all images are loaded, and the images a table contains can be crucial for deciding whether it overflows or not.
    For this reason, the tables are checked for overflow both on DOM load as well as after all images have loaded.<br/>
-   Since it can take a while from the first image overflowing a table, and the last image being loaded, the pure-CSS-solution remains active alongside the JS solution until all images have loaded, to err on the side of applying the tiny table styling until all images have loaded.
-   
-### How does it look when the table switches to its mobile form?
-
-Pretty much like this:
-
-<p align="center"><img src="images/resize-recording.gif" alt="GIF of a recording where the demo page is resized"/></p>
+   Since it can take a while from the first image overflowing a table, and the last image being loaded, the pure-CSS-solution remains active alongside the JS solution until all images have loaded, to err on the side of applying the tiny table styling until all images have loaded.</details>
 
 ## Demo pls?
 
@@ -121,7 +121,7 @@ If your default styling from tables is largely different, you might be able to d
 You can change the minified-table-CSS to suit your needs, though!
 
 If your tables contain many images, you might want to tweek and double-check some things;
-see [above](#what-s-the-issue-about-tables-with-images-there-s-even-one-specifically-in-the-demo) for further information.<br/>
+see [above](#many-images-info) for further information.<br/>
 Please also note that tables need to use `display: block`, since their overflow won't be detected correctly otherwise.
 
 ---
