@@ -129,3 +129,8 @@ Please also note that tables need to use `display: block`, since their overflow 
 I feel like this way of handling tables should be way more popular than it apparently is (please tell me if you know of any website that does somewhat similar, I'd love to see it!), and I hope you might find it useful, too - feel free to use its code, it's MIT licensed.
 
 If you find this trick useful, please consider giving this repository a star :star: to show your appreciation! :D
+
+ToDo:
+* Demo mobile optimizen
+* die beiden Bilder extenden
+* add browser resize gif
