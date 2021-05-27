@@ -134,3 +134,5 @@ ToDo:
 * Demo mobile optimizen
 * die beiden Bilder extenden
 * add browser resize gif
+* make images for sharing
+* (maybe) make texts for sharing
