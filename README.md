@@ -134,7 +134,7 @@ If you find this trick useful, please consider giving this repository a star :st
 
 ToDo:
 * [x] Demo mobile optimizen
-* [ ] die beiden Bilder extenden
-* [ ] add browser resize gif
+* [x] die beiden Bilder extenden
+* [x] add browser resize gif
 * [ ] make images for sharing
 * [ ] (maybe) make texts for sharing
