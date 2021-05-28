@@ -17,7 +17,7 @@ Most of these tables look like this:
 
 When you view these tables on mobile, however, or on an otherwise really small screen, they tend to look like this:
 
-![the same table, but the screen is so small that it overflows horizontally](images/illustration-table-small-crammed.png)
+![the same table, but the screen is so small that it overflows horizontally](images/illustration-table-small-crammed--large-image.png)
 
 The tables overflow horizontally!
 
@@ -26,7 +26,7 @@ Horizontal scrollbars should be used as a last resort and not as the standard wa
 
 One solution I came up with (which this repository demonstrates) is to stack the table columns once the viewport gets so small the table tries to overflow, like this:
 
-![the same table, but for every row, the cells are shown beneath each other with different indentions](images/illustration-table-small-stacked.png)
+![the same table, but for every row, the cells are shown beneath each other with different indentions](images/illustration-table-small-stacked--large-image.png)
 
 I think this is a really neat solution, and I don't get why no website I have ever seen does this.
 
@@ -131,8 +131,8 @@ I feel like this way of handling tables should be way more popular than it appar
 If you find this trick useful, please consider giving this repository a star :star: to show your appreciation! :D
 
 ToDo:
-* Demo mobile optimizen
-* die beiden Bilder extenden
-* add browser resize gif
-* make images for sharing
-* (maybe) make texts for sharing
+* [x] Demo mobile optimizen
+* [ ] die beiden Bilder extenden
+* [ ] add browser resize gif
+* [ ] make images for sharing
+* [ ] (maybe) make texts for sharing
